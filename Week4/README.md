@@ -190,7 +190,7 @@ And in your HTML:
 
 Once your project is complete, submit it by filling out this form:
 
-**Submission Form:** *(link to be added by manager)*
+**Submission Form:** Will be shared in group
 
 Your submission must include the following:
 
