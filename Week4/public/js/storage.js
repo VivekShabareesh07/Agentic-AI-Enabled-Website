@@ -23,7 +23,7 @@ function addTransaction(transaction) {
 
 // Deletes a transaction by its id
 function deleteTransaction(id) {
-  const filtered = getTransactions().filter((t) => t.id !== id);
+  const filtered = getTransactions().filter((t) => String(t.id) !== String(id));
   localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
 }
 

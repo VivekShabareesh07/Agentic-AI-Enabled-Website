@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>History</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/storage.js"></script>
+</head>
+
+<body>
+
+<h1>Finance Tracker</h1>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="add-transaction.html">Add Transaction</a>
+    <a href="history.html">History</a>
+    <a href="reports.html">Reports</a>
+    <a href="assistant.html">AI Assistant</a>
+    <a href="settings.html">Settings</a>
+</nav>
+
+<h2>Transaction History</h2>
+
+<table border="1" cellpadding="10">
+
+<thead>
+
+<tr>
+    <th>Description</th>
+    <th>Amount</th>
+    <th>Type</th>
+    <th>Category</th>
+    <th>Date</th>
+    <th>Action</th>
+</tr>
+
+</thead>
+
+<tbody id="historyTable">
+
+</tbody>
+
+</table>
+
+<script>
+
+function loadHistory(){
+
+    const table = document.getElementById("historyTable");
+
+    table.innerHTML = "";
+
+    const transactions = getTransactions();
+
+    transactions.forEach(function(transaction){
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+        <td>${transaction.description}</td>
+        <td>₹${transaction.amount}</td>
+        <td>${transaction.type}</td>
+        <td>${transaction.category}</td>
+        <td>${transaction.date}</td>
+        <td>
+            <button onclick="removeTransaction('${transaction.id}')">
+                Delete
+            </button>
+        </td>
+        `;
+
+        table.appendChild(row);
+
+    });
+
+}
+
+function removeTransaction(id){
+    // console.log(id, typeof id);
+
+    // console.log("Button clicked", id);
+
+    deleteTransaction(id);
+
+    loadHistory();
+
+}
+
+loadHistory();
+
+</script>
+
+</body>
+</html>

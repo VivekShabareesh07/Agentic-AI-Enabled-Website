@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/storage.js"></script>
+</head>
+
+<body>
+
+<h1>Finance Tracker</h1>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="add-transaction.html">Add Transaction</a>
+    <a href="history.html">History</a>
+    <a href="reports.html">Reports</a>
+    <a href="assistant.html">AI Assistant</a>
+    <a href="settings.html">Settings</a>
+</nav>
+
+<div class="card">
+
+<h2>Dashboard</h2>
+
+<h3>Balance</h3>
+<p id="balance"></p>
+
+<h3>Total Income</h3>
+<p id="income"></p>
+
+<h3>Total Expenses</h3>
+<p id="expense"></p>
+
+<h3>Recent Transactions</h3>
+
+<ul id="recentList"></ul>
+
+</div>
+
+<script>
+
+document.getElementById("balance").textContent =
+"₹ " + getBalance();
+
+document.getElementById("income").textContent =
+"₹ " + getTotalIncome();
+
+document.getElementById("expense").textContent =
+"₹ " + getTotalExpenses();
+
+const recent = getTransactions();
+
+recent
+.slice(-5)
+.reverse()
+.forEach(function(transaction){
+
+    const li = document.createElement("li");
+
+    li.textContent =
+    `${transaction.description} - ₹${transaction.amount}`;
+
+    document
+    .getElementById("recentList")
+    .appendChild(li);
+
+});
+
+</script>
+
+</body>
+</html>

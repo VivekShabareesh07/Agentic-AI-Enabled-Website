@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Transaction</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/storage.js"></script>
+</head>
+
+<body>
+
+<h1>Finance Tracker</h1>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="add-transaction.html">Add Transaction</a>
+    <a href="history.html">History</a>
+    <a href="reports.html">Reports</a>
+    <a href="assistant.html">AI Assistant</a>
+    <a href="settings.html">Settings</a>
+</nav>
+
+<div class="container">
+
+<h2>Add Transaction</h2>
+
+<input type="text" id="description" placeholder="Description">
+
+<input type="number" id="amount" placeholder="Amount">
+
+<select id="type">
+    <option value="income">Income</option>
+    <option value="expense">Expense</option>
+</select>
+
+<select id="category">
+    <option>Food</option>
+    <option>Transport</option>
+    <option>Shopping</option>
+    <option>Salary</option>
+    <option>Entertainment</option>
+    <option>Others</option>
+</select>
+
+<input type="date" id="date">
+
+<button id="addBtn">Add Transaction</button>
+
+<p id="message"></p>
+
+</div>
+
+<script>
+
+document.getElementById("addBtn").onclick=function(){
+
+    const description=document.getElementById("description").value;
+
+    const amount=Number(document.getElementById("amount").value);
+
+    const type=document.getElementById("type").value;
+
+    const category=document.getElementById("category").value;
+
+    const date=document.getElementById("date").value;
+
+    if(description=="" || amount<=0 || date==""){
+
+        message.textContent="Please fill all fields.";
+
+        message.style.color="red";
+
+        return;
+    }
+
+    addTransaction({
+
+        description,
+
+        amount,
+
+        type,
+
+        category,
+
+        date
+
+    });
+
+    message.textContent="Transaction Added!";
+
+    message.style.color="green";
+
+};
+
+function removeTransaction(id){
+
+    console.log("Deleting:", id);
+
+    deleteTransaction(id);
+
+    console.log(getTransactions());
+
+    loadHistory();
+}
+
+</script>
+
+</body>
+</html>

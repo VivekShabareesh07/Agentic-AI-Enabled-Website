@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Reports</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="js/storage.js"></script>
+    <script src="js/ai.js"></script>
+
+</head>
+
+<body>
+
+<h1>Finance Tracker</h1>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="add-transaction.html">Add Transaction</a>
+    <a href="history.html">History</a>
+    <a href="reports.html">Reports</a>
+    <a href="assistant.html">AI Assistant</a>
+    <a href="settings.html">Settings</a>
+</nav>
+
+<h2>Reports</h2>
+
+<canvas id="myChart"></canvas>
+
+<br>
+
+
+<button id="insightsBtn">Generate Insights</button>
+
+<div id="aiOutput"></div>
+
+<script>
+
+const totals = getCategoryTotals();
+
+new Chart(document.getElementById("myChart"),{
+
+    type:"pie",
+
+    data:{
+
+        labels:Object.keys(totals),
+
+        datasets:[{
+
+            data:Object.values(totals),
+
+            backgroundColor:[
+                "#6C63FF",
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56",
+                "#4BC0C0",
+                "#9966FF"
+            ]
+
+        }]
+
+    }
+
+});
+
+
+document.getElementById("insightsBtn").onclick = async function () {
+
+    const totals = getCategoryTotals();
+    const balance = getBalance();
+
+    try {
+
+        const reply = await askAI(
+            `My balance is ₹${balance}.
+            My spending by category is:
+            ${JSON.stringify(totals)}
+
+            Give me exactly 3 short financial tips.`
+        );
+
+        document.getElementById("aiOutput").innerHTML = `
+            <h3>AI Insights</h3>
+            <p>${reply}</p>
+        `;
+
+    }
+    catch {
+
+        document.getElementById("aiOutput").textContent =
+        "Unable to generate insights.";
+
+    }
+
+};
+
+</script>
+
+</body>
+
+</html>
